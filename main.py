@@ -23,4 +23,5 @@ def submit():
     return response.text
 
 if __name__ == '__main__':
-    app.run(port=8080, debug=False)
+    port = int(os.getenv('PORT', 8080))  # 環境変数PORTを取得し、デフォルトは8080
+    app.run(host='0.0.0.0', port=port, debug=False)  # 0.0.0.0でバインドして実行
