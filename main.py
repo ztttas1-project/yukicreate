@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 # ドメイン名の正規表現
 DOMAIN_REGEX = r'^(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$'
-serid = {os.getenv('SER_ID')}
+serid = os.getenv('SER_ID')
 # Render APIのエンドポイント
 BASE_URL = f"https://api.render.com/v1/services/{serid}/custom-domains"
 HEADERS = {
@@ -18,6 +18,9 @@ HEADERS = {
     "content-type": "application/json",
     "authorization": f"Bearer {os.getenv('RENDER_API_KEY')}"
 }
+
+# ホワイトリスト
+whitelist = ["easterndns.com", "ydns.eu","ipv64.net","ipv64.de","any64.de","api64.de","dns64.de","dyndns64.de","dynipv6.de","eth64.de","home64.de","iot64.de","lan64.de","nas64.de","root64.de","route64.de","srv64.de","tcp64.de","udp64.de","vpn64.de","wan64.de"]
 
 def fetch_custom_domains():
     try:
@@ -61,6 +64,10 @@ def submit():
     # ドメイン名の検証
     if not re.match(DOMAIN_REGEX, domain):
         return {"error": "無効なドメイン名です。"}, 400  # 400 Bad Request
+
+    # ホワイトリストのチェック
+    if not any(domain.endswith(whitelisted) for whitelisted in whitelist):
+        return {"error": "ホワイトリストに含まれていないドメインです。"}, 400  # 400 Bad Request
 
     payload = {"name": domain}
 
