@@ -63,7 +63,7 @@ def submit():
     
     # ドメイン名の検証
     if not re.match(DOMAIN_REGEX, domain):
-        return {"error": "無効なドメイン名です。"}, 400  # 400 Bad Request
+        return {"error": "Invalid domain name."}, 400  # 400 Bad Request
 
     # ホワイトリストのチェック
     if not any(domain.endswith(whitelisted) for whitelisted in whitelist):
