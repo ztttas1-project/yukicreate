@@ -10,9 +10,9 @@ app = Flask(__name__)
 
 # ドメイン名の正規表現
 DOMAIN_REGEX = r'^(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$'
-
+serid = {os.getenv('SER_ID')}
 # Render APIのエンドポイント
-BASE_URL = "https://api.render.com/v1/services/srv-cohmstol5elc73cql8g0/custom-domains"
+BASE_URL = f"https://api.render.com/v1/services/{serid}/custom-domains"
 HEADERS = {
     "accept": "application/json",
     "content-type": "application/json",
