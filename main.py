@@ -66,7 +66,7 @@ def submit():
         return {"error": "無効なドメイン名です。"}, 400  # 400 Bad Request
 
     # ホワイトリストのチェック
-    if not any(domain.endswith(whitelisted) for whitelisted in whitelist):
+    if domain in whitelist or any(domain.endswith(whitelisted) for whitelisted in whitelist):
         return {"error": "ホワイトリストに含まれていないドメインです。"}, 400  # 400 Bad Request
 
     payload = {"name": domain}
