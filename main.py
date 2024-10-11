@@ -12,12 +12,7 @@ key = ""
 DOMAIN_REGEX = r'^(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$'
 serid = ""
 # Render APIのエンドポイント
-BASE_URL = f"https://api.render.com/v1/services/{serid}/custom-domains"
-HEADERS = {
-    "accept": "application/json",
-    "content-type": "application/json",
-    "authorization": f"Bearer {key}"
-}
+
 
 # ホワイトリスト
 whitelist = ["easterndns.com", "ydns.eu","ipv64.net","ipv64.de","any64.de","api64.de","dns64.de","dyndns64.de","dynipv6.de","eth64.de","home64.de","iot64.de","lan64.de","nas64.de","root64.de","route64.de","srv64.de","tcp64.de","udp64.de","vpn64.de","wan64.de"]
@@ -73,6 +68,8 @@ def submit():
     #ser = request.form['ser']
     key = os.environ['KEY1']
     serid = "srv-cohmstol5elc73cql8g0"
+    BASE_URL = f"https://api.render.com/v1/services/{serid}/custom-domains"
+    HEADERS = {"accept": "application/json","content-type": "application/json","authorization": f"Bearer {key}"}
     try:
         response = requests.post(BASE_URL, json=payload, headers=HEADERS)
         response.raise_for_status()  # ステータスコードが4xxや5xxの場合に例外を発生させる
