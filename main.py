@@ -97,8 +97,6 @@ def submit():
             return response.json()  # JSONレスポンスを返す
         except requests.exceptions.RequestException as e:
             return {"error": str(e)}, 500  # エラーメッセージを返す
-    else:
-        return {"error": "No servers available"},500
 if __name__ == '__main__':
     # スケジューラースレッドを開始
     threading.Thread(target=run_scheduler, daemon=True).start()
