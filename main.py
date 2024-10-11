@@ -60,7 +60,7 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit():
     domain = request.form['domain']
-    ser = request.form['ser']
+    
     
     # ドメイン名の検証
     if not re.match(DOMAIN_REGEX, domain):
@@ -70,6 +70,7 @@ def submit():
     if not any(domain.endswith(whitelisted) for whitelisted in whitelist):
         return {"error": "The domain is not included in the whitelist."}, 400  # 400 Bad Request
     payload = {"name": domain}
+    #ser = request.form['ser']
     key = os.environ['KEY1']
     serid = "srv-cohmstol5elc73cql8g0"
     try:
