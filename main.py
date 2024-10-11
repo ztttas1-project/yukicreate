@@ -70,33 +70,41 @@ def submit():
     if not any(domain.endswith(whitelisted) for whitelisted in whitelist):
         return {"error": "The domain is not included in the whitelist."}, 400  # 400 Bad Request
     payload = {"name": domain}
-    if ser == 1:
-        key = os.environ['KEY1']
-        serid = "srv-cohmstol5elc73cql8g0"
-        try:
-            response = requests.post(BASE_URL, json=payload, headers=HEADERS)
-            response.raise_for_status()  # ステータスコードが4xxや5xxの場合に例外を発生させる
-            return response.json()  # JSONレスポンスを返す
-        except requests.exceptions.RequestException as e:
-            return {"error": str(e)}, 500  # エラーメッセージを返す
-    elif ser == 2:
-        key = os.environ['KEY2']
-        serid = "srv-comtq2a1hbls73f9a3d0"
-        try:
-            response = requests.post(BASE_URL, json=payload, headers=HEADERS)
-            response.raise_for_status()  # ステータスコードが4xxや5xxの場合に例外を発生させる
-            return response.json()  # JSONレスポンスを返す
-        except requests.exceptions.RequestException as e:
-            return {"error": str(e)}, 500  # エラーメッセージを返す
-    elif ser == 3:
-        key = os.environ['KEY3']
-        serid = "srv-crkkbvrv2p9s73e36tp0"
-        try:
-            response = requests.post(BASE_URL, json=payload, headers=HEADERS)
-            response.raise_for_status()  # ステータスコードが4xxや5xxの場合に例外を発生させる
-            return response.json()  # JSONレスポンスを返す
-        except requests.exceptions.RequestException as e:
-            return {"error": str(e)}, 500  # エラーメッセージを返す
+    key = os.environ['KEY1']
+    serid = "srv-cohmstol5elc73cql8g0"
+    try:
+        response = requests.post(BASE_URL, json=payload, headers=HEADERS)
+        response.raise_for_status()  # ステータスコードが4xxや5xxの場合に例外を発生させる
+        return response.json()  # JSONレスポンスを返す
+    except requests.exceptions.RequestException as e:
+        return {"error": str(e)}, 500  # エラーメッセージを返す
+    #if ser == 1:
+    #    key = os.environ['KEY1']
+    #    serid = "srv-cohmstol5elc73cql8g0"
+    #    try:
+    #        response = requests.post(BASE_URL, json=payload, headers=HEADERS)
+    #        response.raise_for_status()  # ステータスコードが4xxや5xxの場合に例外を発生させる
+    #        return response.json()  # JSONレスポンスを返す
+    #    except requests.exceptions.RequestException as e:
+    #        return {"error": str(e)}, 500  # エラーメッセージを返す
+    #elif ser == 2:
+    #    key = os.environ['KEY2']
+    #    serid = "srv-comtq2a1hbls73f9a3d0"
+    #    try:
+    #        response = requests.post(BASE_URL, json=payload, headers=HEADERS)
+    #        response.raise_for_status()  # ステータスコードが4xxや5xxの場合に例外を発生させる
+    #        return response.json()  # JSONレスポンスを返す
+    #    except requests.exceptions.RequestException as e:
+    #        return {"error": str(e)}, 500  # エラーメッセージを返す
+    #elif ser == 3:
+    #    key = os.environ['KEY3']
+    #    serid = "srv-crkkbvrv2p9s73e36tp0"
+    #    try:
+    #        response = requests.post(BASE_URL, json=payload, headers=HEADERS)
+    #        response.raise_for_status()  # ステータスコードが4xxや5xxの場合に例外を発生させる
+    #        return response.json()  # JSONレスポンスを返す
+    #    except requests.exceptions.RequestException as e:
+    #        return {"error": str(e)}, 500  # エラーメッセージを返す
 if __name__ == '__main__':
     # スケジューラースレッドを開始
     threading.Thread(target=run_scheduler, daemon=True).start()
