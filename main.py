@@ -55,7 +55,7 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit():
     domain = request.form['domain']
-    
+    server_choice = request.form['server']  # 選択されたサーバーを取得
     
     # ドメイン名の検証
     if not re.match(DOMAIN_REGEX, domain):
@@ -64,12 +64,25 @@ def submit():
     # ホワイトリストのチェック
     if not any(domain.endswith(whitelisted) for whitelisted in whitelist):
         return {"error": "The domain is not included in the whitelist."}, 400  # 400 Bad Request
+
     payload = {"name": domain}
-    #ser = request.form['ser']
-    key = os.environ['KEY1']
-    serid = "srv-cohmstol5elc73cql8g0"
+    
+    # サーバーに応じた設定
+    if server_choice == "1":
+        key = os.environ['KEY1']
+        serid = "srv-cohmstol5elc73cql8g0"
+    elif server_choice == "2":
+        key = os.environ['KEY2']
+        serid = "srv-comtq2a1hbls73f9a3d0"
+    elif server_choice == "3":
+        key = os.environ['KEY3']
+        serid = "srv-crkkbvrv2p9s73e36tp0"
+    else:
+        return {"error": "Invalid server choice."}, 400  # 400 Bad Request
+    
     BASE_URL = f"https://api.render.com/v1/services/{serid}/custom-domains"
     HEADERS = {"accept": "application/json","content-type": "application/json","authorization": f"Bearer {key}"}
+    
     try:
         response = requests.post(BASE_URL, json=payload, headers=HEADERS)
         response.raise_for_status()  # ステータスコードが4xxや5xxの場合に例外を発生させる
