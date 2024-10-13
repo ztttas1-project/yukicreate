@@ -12,9 +12,10 @@ key = ""
 DOMAIN_REGEX = r'^(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$'
 serid = ""
 # Render APIのエンドポイント
+"""
 apikeylist = []
 idlist = []
-
+"""#無効化-サードパーティーサーバー
 # ホワイトリスト
 whitelist = ["easterndns.com", "ydns.eu","ipv64.net","ipv64.de","any64.de","api64.de","dns64.de","dyndns64.de","dynipv6.de","eth64.de","home64.de","iot64.de","lan64.de","nas64.de","root64.de","route64.de","srv64.de","tcp64.de","udp64.de","vpn64.de","wan64.de"]
 
@@ -52,6 +53,7 @@ def run_scheduler():
 @app.route('/')
 def index():
     return render_template('index.html')
+"""
 @app.route('/submitserver')
 def index():
     apikey = request.form['apikey']
@@ -67,6 +69,7 @@ def index():
     apikeylist.append(apikey)
     idlist.append(serviceid)
     return {"submitok": f"{serviceid},{apikey}"}
+"""#無効化-サードパーティーサーバー
 @app.route('/submit', methods=['POST'])
 def submit():
     domain = request.form['domain']
