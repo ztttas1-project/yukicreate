@@ -11,6 +11,7 @@ key = ""
 # ドメイン名の正規表現
 DOMAIN_REGEX = r'^(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$'
 serid = ""
+ip = ""
 # Render APIのエンドポイント
 blackwordlist = os.environ['blackwordlist']
 blackiplist = []
