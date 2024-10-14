@@ -12,7 +12,8 @@ key = ""
 DOMAIN_REGEX = r'^(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$'
 serid = ""
 # Render APIのエンドポイント
-
+blackwordlist = os.environ['blackwordlist']
+blackiplist = []
 # ホワイトリスト
 whitelist = ["easterndns.com", "ydns.eu","ipv64.net","ipv64.de","any64.de","api64.de","dns64.de","dyndns64.de","dynipv6.de","eth64.de","home64.de","iot64.de","lan64.de","nas64.de","root64.de","route64.de","srv64.de","tcp64.de","udp64.de","vpn64.de","wan64.de"]
 
@@ -49,6 +50,10 @@ def run_scheduler():
 
 @app.route('/')
 def index():
+    #不適切ワード-------------------------------------------始め
+    if ip in blackiplist:
+        return redirect("https://google.com")
+    #不適切ワード------------------------------------------終わり
     return render_template('index.html')
 
 @app.route('/submit', methods=['POST'])
@@ -65,7 +70,14 @@ def submit():
         return {"error": "The domain is not included in the whitelist."}, 400  # 400 Bad Request
 
     payload = {"name": domain}
-    
+    #不適切ワード-------------------------------------------始め
+    ip = request.remote_addr
+    if domain in blackwordlist:
+        blackiplist.append(ip)
+        return redirect("https://google.com")
+    if ip in blackiplist:
+        return redirect("https://google.com")
+    #不適切ワード------------------------------------------終わり
     # サーバーに応じた設定
     if server_choice == "1":
         key = os.environ['KEY1']
