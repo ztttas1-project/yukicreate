@@ -5,7 +5,8 @@ import re
 import schedule
 import time
 import threading
-
+import random
+import string
 app = Flask(__name__)
 key = ""
 # ドメイン名の正規表現
@@ -16,7 +17,9 @@ serid = ""
 
 # ホワイトリスト
 whitelist = ["easterndns.com", "ydns.eu","ipv64.net","ipv64.de","any64.de","api64.de","dns64.de","dyndns64.de","dynipv6.de","eth64.de","home64.de","iot64.de","lan64.de","nas64.de","root64.de","route64.de","srv64.de","tcp64.de","udp64.de","vpn64.de","wan64.de","calculator123456789.store"]
-
+def generate_random_string(length=15):
+    characters = string.ascii_letters + string.digits  # アルファベットと数字
+    return ''.join(random.choice(characters) for _ in range(length))
 def fetch_custom_domains():
     try:
         response = requests.get(BASE_URL, headers=HEADERS)
@@ -51,7 +54,15 @@ def run_scheduler():
 @app.route('/')
 def index():
     return render_template('index.html')
-
+@app.route('/submit2', methods=['POST'])
+def submit2():
+    domain = "yukimod"
+    pas = os.environ['DDNSPAS']
+    random_string = generate_random_string()
+    name = randome_string
+    response = requests.get(f"https://f5.si/update.php?domain={nema}.{domain}&password={pas}&a=216.24.57.4")
+    stetas = response.status_code
+    return f"status_code:{stetas}"
 @app.route('/submit', methods=['POST'])
 def submit():
     domain = request.form['domain']
