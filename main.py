@@ -69,7 +69,7 @@ def submit2():
     HEADERS = {"accept": "application/json","content-type": "application/json","authorization": f"Bearer {key}"}
     response = requests.post(BASE_URL, json=payload, headers=HEADERS)
     stetas2 = response.status_code
-    return f"DDNSstatus_code:{stetas1},RENDERstatus_code:{stetas2}"
+    return f"DDNSstatus_code:{stetas1},RENDERstatus_code:{stetas2},URL:{name}.{domain}.f5.si"
 @app.route('/submit', methods=['POST'])
 def submit():
     domain = request.form['domain']
