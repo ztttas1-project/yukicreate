@@ -60,7 +60,7 @@ def submit2():
     pas = os.environ['DDNSPAS']
     random_string = generate_random_string()
     name = random_string
-    response = requests.get(f"https://f5.si/update.php?domain={nema}.{domain}&password={pas}&a=216.24.57.4")
+    response = requests.get(f"https://f5.si/update.php?domain={name}.{domain}&password={pas}&a=216.24.57.4")
     stetas1 = response.status_code
     key = os.environ['KEY2']
     payload = {"name": f"{name}.{domain}.f5.si"}
