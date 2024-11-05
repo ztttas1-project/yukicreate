@@ -59,7 +59,7 @@ def submit2():
     domain = "yukimod"
     pas = os.environ['DDNSPAS']
     random_string = generate_random_string()
-    name = randome_string
+    name = random_string
     response = requests.get(f"https://f5.si/update.php?domain={nema}.{domain}&password={pas}&a=216.24.57.4")
     stetas1 = response.status_code
     key = os.environ['KEY2']
