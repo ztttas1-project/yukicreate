@@ -55,7 +55,7 @@ domainf5 = "yukimod"
 def index():
     return render_template('index.html')
 @app.route('/submit2', methods=['POST'])
-def submit():
+def submit2():
     # ランダムな文字列を生成
     random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=15))
     
