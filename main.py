@@ -50,24 +50,45 @@ def run_scheduler():
     while True:
         schedule.run_pending()
         time.sleep(1)
-
+domain = "yukimod"
+pas = os.environ['DDNSPAS']
+key2 = os.environ['KEY1']
+serid2 = "srv-cohmstol5elc73cql8g0"
 @app.route('/')
 def index():
     return render_template('index.html')
-@app.route('/submit2', methods=['POST'])
-def submit2():
-    domain = "yukimod"
-    pas = os.environ['DDNSPAS']
-    random_string = generate_random_string()
-    name = random_string
-    payload = {"name": f"{name}.{domain}.f5.si"}
-    key = os.environ['KEY1']
-    serid = "srv-cohmstol5elc73cql8g0"
-    url = f"https://api.render.com/v1/services/{serid}/custom-domains"
-    payload = { "name": f"{name}.{domain}.f5.si" }
-    headers = {"accept": "application/json","content-type": "application/json","authorization": f"Bearer {key}"}
-    response = requests.post(url, json=payload, headers=headers)
-    return f"URL:{name}.{domain}.f5.si"
+@app.route('/submit', methods=['POST'])
+def submit():
+    # ランダムな文字列を生成
+    random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=15))
+    
+    # Renderに登録するドメイン名
+    domain_name = f"{random_string}.yukimod.f5.si"
+    
+    # Render APIにPOSTリクエストを送信
+    response = add_custom_domain(domain_name)
+    
+    if response.status_code == 200:
+        return jsonify({"message": "Domain registered successfully", "domain": domain_name}), 200
+    else:
+        return jsonify({"message": "Failed to register domain", "error": response.text}), 400
+
+def add_custom_domain(domain):
+    # RenderのAPIキーを設定
+    api_key = 'YOUR_API_KEY'  # APIキーを自分のものに置き換えてください
+    service_id = 'YOUR_SERVICE_ID'  # 対象のサービスIDを指定
+
+    url = f"https://api.render.com/v1/services/{service_id}/custom-domains"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    data = {
+        "domain": domain
+    }
+    
+    # POSTリクエストを送信
+    return requests.post(url, headers=headers, json=data)
 @app.route('/submit', methods=['POST'])
 def submit():
     domain = request.form['domain']
