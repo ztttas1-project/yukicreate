@@ -50,20 +50,17 @@ def run_scheduler():
     while True:
         schedule.run_pending()
         time.sleep(1)
-domain = "yukimod"
-pas = os.environ['DDNSPAS']
-key2 = os.environ['KEY1']
-serid2 = "srv-cohmstol5elc73cql8g0"
+domainf5 = "yukimod"
 @app.route('/')
 def index():
     return render_template('index.html')
-@app.route('/submit', methods=['POST'])
+@app.route('/submit2', methods=['POST'])
 def submit():
     # ランダムな文字列を生成
     random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=15))
     
     # Renderに登録するドメイン名
-    domain_name = f"{random_string}.yukimod.f5.si"
+    domain_name = f"{random_string}.{domainf5}.f5.si"
     
     # Render APIにPOSTリクエストを送信
     response = add_custom_domain(domain_name)
@@ -75,9 +72,9 @@ def submit():
 
 def add_custom_domain(domain):
     # RenderのAPIキーを設定
-    api_key = 'YOUR_API_KEY'  # APIキーを自分のものに置き換えてください
-    service_id = 'YOUR_SERVICE_ID'  # 対象のサービスIDを指定
-
+    api_key = os.environ['KEY1']  # APIキーを自分のものに置き換えてください
+    service_id = "srv-cohmstol5elc73cql8g0"  # 対象のサービスIDを指定
+    
     url = f"https://api.render.com/v1/services/{service_id}/custom-domains"
     headers = {
         "Authorization": f"Bearer {api_key}",
