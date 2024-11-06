@@ -66,9 +66,9 @@ def submit2():
     response = add_custom_domain(domain_name)
     
     if response.status_code == 200:
-        return jsonify({"message": "Domain registered successfully", "domain": domain_name}), 200
+        return f"{"message": "Domain registered successfully", "domain": domain_name}", 200
     else:
-        return jsonify({"message": "Failed to register domain", "error": response.text}), 400
+        return f"{"message": "Failed to register domain", "error": response.text}", 400
 
 def add_custom_domain(domain):
     # RenderのAPIキーを設定
