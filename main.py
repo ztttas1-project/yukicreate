@@ -61,13 +61,13 @@ def submit2():
     random_string = generate_random_string()
     name = random_string
     payload = {"name": f"{name}.{domain}.f5.si"}
-    key = os.environ['KEY2']
-    serid = "srv-comtq2a1hbls73f9a3d0"
-    BASE_URL = f"https://api.render.com/v1/services/{serid}/custom-domains"
-    HEADERS = {"accept": "application/json","content-type": "application/json","authorization": f"Bearer {key}"}
-    response = requests.post(BASE_URL, json=payload, headers=HEADERS)
-    stetas2 = response.status_code
-    return f"DDNSstatus_code:{stetas1},RENDERstatus_code:{stetas2},URL:{name}.{domain}.f5.si"
+    key = os.environ['KEY1']
+    serid = "srv-cohmstol5elc73cql8g0"
+    url = f"https://api.render.com/v1/services/{serid}/custom-domains"
+    payload = { "name": f"{name}.{domain}.f5.si" }
+    headers = {"accept": "application/json","content-type": "application/json","authorization": f"Bearer {key}"}
+    response = requests.post(url, json=payload, headers=headers)
+    return f"URL:{name}.{domain}.f5.si"
 @app.route('/submit', methods=['POST'])
 def submit():
     domain = request.form['domain']
