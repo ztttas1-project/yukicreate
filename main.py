@@ -60,10 +60,8 @@ def submit2():
     pas = os.environ['DDNSPAS']
     random_string = generate_random_string()
     name = random_string
-    response = requests.get(f"https://f5.si/update.php?domain={name}.{domain}&password={pas}&a=216.24.57.4")
-    stetas1 = response.status_code
-    key = os.environ['KEY2']
     payload = {"name": f"{name}.{domain}.f5.si"}
+    key = os.environ['KEY2']
     serid = "srv-comtq2a1hbls73f9a3d0"
     BASE_URL = f"https://api.render.com/v1/services/{serid}/custom-domains"
     HEADERS = {"accept": "application/json","content-type": "application/json","authorization": f"Bearer {key}"}
