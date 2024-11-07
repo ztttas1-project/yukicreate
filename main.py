@@ -81,7 +81,7 @@ def submit2():
     # Render APIにPOSTリクエストを送信
     response = add_custom_domain(domain_name)
     
-    if response.status_code == 200:
+    if response.status_code == 201:
         return f"message: Domain registered successfully, domain: {domain_name}", 200
     else:
         return f"message: Failed to register domain, error: {response.text}", 400
