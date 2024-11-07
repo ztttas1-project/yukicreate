@@ -72,8 +72,8 @@ def submit2():
 
 def add_custom_domain(domain):
     # RenderのAPIキーを設定
-    api_key = os.environ['KEY1']  # APIキーを自分のものに置き換えてください
-    service_id = "srv-cohmstol5elc73cql8g0"  # 対象のサービスIDを指定
+    api_key = os.environ['KEY2']  # APIキーを自分のものに置き換えてください
+    service_id = "srv-crkkbvrv2p9s73e36tp0"  # 対象のサービスIDを指定
     
     url = f"https://api.render.com/v1/services/{service_id}/custom-domains"
     headers = {
