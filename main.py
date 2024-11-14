@@ -129,6 +129,15 @@ def submit():
     elif server_choice == "4":
         key = os.environ['KEY4']
         serid = "srv-cs7n565umphs73a9lpsg"
+    elif server_choice == "5":
+        key = os.environ['KEY5']
+        serid = "srv-csitb323esus73fs1erg"
+    elif server_choice == "6":
+        key = os.environ['KEY6']
+        serid = "srv-csitbnm8ii6s73cr5n20"
+    elif server_choice == "7":
+        key = os.environ['KEY7']
+        serid = "srv-csita4u8ii6s73cr4u40"
     else:
         return {"error": "Invalid server choice."}, 400  # 400 Bad Request
     
