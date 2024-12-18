@@ -147,6 +147,7 @@ def submit():
     try:
         response = requests.post(BASE_URL, json=payload, headers=HEADERS)
         response.raise_for_status()  # ステータスコードが4xxや5xxの場合に例外を発生させる
+        print(f"ドメイン:{domain},サーバー:{server_choice}")
         return response.json()  # JSONレスポンスを返す
     except requests.exceptions.RequestException as e:
         return {"error": str(e)}, 500  # エラーメッセージを返す
