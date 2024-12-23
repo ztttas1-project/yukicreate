@@ -32,7 +32,7 @@ serid = ""
 # Render APIのエンドポイント
 
 # ホワイトリスト
-whitelist = ["swanndvr.net","easterndns.com", "ydns.eu","ipv64.net","ipv64.de","any64.de","api64.de","dns64.de","dyndns64.de","dynipv6.de","eth64.de","home64.de","iot64.de","lan64.de","nas64.de","root64.de","route64.de","srv64.de","tcp64.de","udp64.de","vpn64.de","wan64.de","calculator123456789.store","yukimod.f5.si","yukimods.f5.si","yukitube.f5.si"]
+whitelist = [".laviewddns.com",".swanndvr.net",".easterndns.com", ".ydns.eu",".ipv64.net",".ipv64.de",".any64.de",".api64.de",".dns64.de",".dyndns64.de",".dynipv6.de",".eth64.de",".home64.de",".iot64.de",".lan64.de",".nas64.de",".root64.de",".route64.de",".srv64.de",".tcp64.de",".udp64.de",".vpn64.de",".wan64.de",".calculator123456789.store",".yukimod.f5.si",".yukimods.f5.si",".yukitube.f5.si"]
 def generate_random_string(length=15):
     characters = string.ascii_letters + string.digits  # アルファベットと数字
     return ''.join(random.choice(characters) for _ in range(length))
