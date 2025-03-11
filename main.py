@@ -14,22 +14,6 @@ DOMAIN_REGEX = r'^(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$'
 serid = ""
 
 # Render APIのエンドポイント
-from flask import Flask, request, render_template
-import requests
-import os
-import re
-import schedule
-import time
-import threading
-import random
-import string
-app = Flask(__name__)
-key = ""
-# ドメイン名の正規表現
-DOMAIN_REGEX = r'^(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$'
-serid = ""
-
-# Render APIのエンドポイント
 
 # ホワイトリスト
 whitelist = ["myclarevision.com",".laviewddns.com",".swanndvr.net",".easterndns.com", ".ydns.eu",".ipv64.net",".ipv64.de",".any64.de",".api64.de",".dns64.de",".dyndns64.de",".dynipv6.de",".eth64.de",".home64.de",".iot64.de",".lan64.de",".nas64.de",".root64.de",".route64.de",".srv64.de",".tcp64.de",".udp64.de",".vpn64.de",".wan64.de",".calculator123456789.store",".yukimod.f5.si",".yukimods.f5.si",".yukitube.f5.si"]
@@ -67,9 +51,51 @@ def run_scheduler():
         schedule.run_pending()
         time.sleep(1)
 domainf5 = "yukimod"
+
+def cpu():
+    # APIエンドポイント
+    url = "https://api.render.com/v1/metrics/cpu?resource=srv-comtq2a1hbls73f9a3d0"
+    token = os.environ['KEY2']
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        cpu_usage_data = response.json()
+        latest_data = cpu_usage_data[0]
+        latest_value = latest_data['values'][-1]  # 最後のエントリを取得
+        timestamp = latest_value['timestamp']
+        value = latest_value['value']
+        return f"cpu使用率:'{value}',タイムスタンプ:'{timestamp}'"
+    else:
+        return "データを取得できませんでした"
+def memory():
+    # APIエンドポイント
+    url = "https://api.render.com/v1/metrics/meemory?resource=srv-comtq2a1hbls73f9a3d0"
+    token = os.environ['KEY2']
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        cpu_usage_data = response.json()
+        latest_data = cpu_usage_data[0]
+        latest_value = latest_data['values'][-1]  # 最後のエントリを取得
+        timestamp = latest_value['timestamp']
+        value = latest_value['value']
+        return f"cpu使用率:'{value}',タイムスタンプ:'{timestamp}'"
+    else:
+        return "データを取得できませんでした"
 @app.route('/')
 def index():
     return render_template('index.html')
+@app.route("/deta")
+def deta():
+    deta1 = memory()
+    deta2 = cpu()
+    return f"<h1>サーバーの情報</h1><p>{deta2}<br>{deta1}</p>"
 @app.route('/submit2', methods=['POST'])
 def submit2():
     # ランダムな文字列を生成
